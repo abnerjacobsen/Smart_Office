@@ -1,5 +1,5 @@
 {
-    "SECRET_KEY": "my!piot@assignment$student*ID:s3285220",
+    "SECRET_KEY": "a super secret secret-key to encrypt your data",
     "API_ACCESS_KEY" : "PzCmD3&0^1c&eCtQJ0srrl9qaDQnM@6GI1F&Zz&ctEsovj33!",
     "USER" : "root",
     "PASS" : "password for your db",
