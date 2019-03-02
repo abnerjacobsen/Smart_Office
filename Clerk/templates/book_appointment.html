@@ -1,0 +1,211 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<style>
+
+  .selected {
+      background-color: brown;
+      color: #FFF;
+  }
+
+  /* The Model (background) */
+  .model {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 100px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+  /* Model Content */
+  .model-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 50%;
+  }
+
+  /* The Close Button */
+  .close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+  }
+
+</style>
+
+<script>
+  $(document).ready(function(){
+
+    window.scrollTo(0,document.body.scrollHeight);
+
+    var calendar = $('#calendar');
+
+    $("#calendar d1").click(function(){
+      $(this).addClass('selected').siblings().removeClass('selected');    
+      });
+  });
+
+  function displayConfirmation(){
+
+    //Get Buttons
+    var okBtn = document.getElementById('OKbtn');
+
+    // Get the modal
+    var model = document.getElementById('myModel');
+    model.style.display = "block";
+
+    // Get the <span> element that closes the model
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the model
+    span.onclick = function() {
+        model.style.display = "none";
+    }
+
+    // When the user clicks on cancel button, close the model
+    okBtn.onclick = function() {
+        model.style.display = "none";
+    }
+  }
+</script>
+
+<div class="jumbotron text-centre">
+	<h1 align="center">Book Appointment</h1>
+</div>
+
+<div>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul>
+        <h3 style="color: crimson">ERRORS! :</h3></br>
+        {% for message in messages %}
+          <li style="color: crimson">{{ message[1] }}</li></br>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+    </br>
+</div>
+
+<div>
+  {% if notifications|length > 0 %}
+  <script>$(document).ready(function(){displayConfirmation();});</script>
+  {% endif %}
+</div>
+
+<div>
+    <iframe src="https://calendar.google.com/calendar/b/2/embed?title=Doctor%20Availability%20at%20MAPS%20Clinic&amp;
+    showTabs=0&amp;mode=WEEK&amp;height=600&amp;wkst=2&amp;bgcolor=%23999999&amp;src=med.appt.sys%40gmail.com&amp;
+    color=%231B887A&amp;ctz=Australia%2FMelbourne" style="border:solid 1px #777; position: relative; width: 100%" 
+    width="800" height="600" frameborder="0" scrolling="no"></iframe>
+</div>
+
+
+<!-- Forms for patient registration -->
+
+
+<form align="center" action="/book_appointment" method="post" id="form1" name="form1" style="border-style: ridge;">
+    {{ form1.csrf }}
+    <br>
+    <h2>~Provide Details~</h2>
+    <div class="form-group">
+      <br>
+      <label for="pid">Enter Patient ID:</label>
+      {% if enteredPID is defined %}
+      <input style="width: 50%; margin: auto;" value="{{enteredPID}}" type="text" class="form-control" id="pid" name="pid" placeholder="ID of patient booking the appointment"><br>
+      {% else %}
+      <input style="width: 50%; margin: auto;" type="text" class="form-control" id="pid" name="pid" placeholder="ID of patient booking the appointment"><br>
+      {% endif %}
+      <label for="doctor" >Please select which doctor you wish to see:</label><br>
+      <div class="dropdown">  
+        <select class="form-control" style="width: 50%; margin: auto;" name="doctor" id="doctor">
+          <option value="">Select</option>
+          {% for x in doctor_list %}
+          {% if selectedDoctor is defined %}
+            {% if selectedDoctor in x %}
+              <option selected value="{{ x }}">{{ x }}</option>
+            {% else %}
+              <option value="{{ x }}">{{ x }}</option>
+            {% endif %}
+          {% else %}
+            <option value="{{ x }}">{{ x }}</option>
+          {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+
+      </br>
+
+      <label for="date">Please select a date:</label><br>
+      {% if selectedDate is defined %}
+      <input class="form-control" value="{{ selectedDate }}" id="date" type="date" name="date" style="width: 50%; margin: auto;">
+      {% else %}
+      <input class="form-control" id="date" type="date" name="date" style="width: 50%; margin: auto;">
+      {% endif %}
+      </br>
+
+      <button id="loadTimes" name="loadTimes" type="submit" class="btn btn-success">Load Available Appointment Times</button>
+    </div> 
+  </form>
+
+  <form align="center" action="/book_appointment_send" method="post" id="form2" name="form2" style="border-style: ridge;">
+      {{ form2.csrf }}
+      {% if patientID is defined %}
+      <h2>~Confirm Details~</h2>
+      <br>
+      <p style="width: 50%; margin: auto;" for="pidTwo">Your ID: </p>
+      <input style="width: 50%; margin: auto;" class="form-control" id="pidTwo" name="pidTwo" value="{{ patientID }}">
+      <br>
+      {% endif %}
+      {% if doctorToSee is defined and desiredDate is defined %}
+      <p style="width: 50%; margin: auto;" for="doctorToSee">Appointments for: </p>
+      <input class="form-control" style="width: 50%; margin: auto;" id="doctorToSee" name="doctorToSee" value="{{ doctorToSee }}">
+      <br>
+      <p style="width: 50%; margin: auto;" for="desiredDate">on date: </p>
+      <input class="form-control" style="width: 50%; margin: auto;"id="desiredDate" name="desiredDate" value="{{ desiredDate }}">
+      <br>
+      {% endif %}
+      {% if availableTimes is defined %}
+      <h2>~Select A Time~</h2>
+      <select class="form-control" style="width: 50%; margin: auto;" name="time" id="time">
+        {% for time in availableTimes %}
+        <option value="{{ time }}">{{ time }}</option>
+        {% endfor %}
+      </select>
+      <br>
+      <button id="makeBooking" name="makeBooking" type="submit" class="btn btn-success">Book Appointment</button>
+      {% endif %}
+      
+  </form>
+
+<!-- The Modal -->
+<div id="myModel" class="model">
+  <!-- Model content -->
+  <div class="model-content">
+    <span class="close">&times;</span>
+    <label>Notifications:</label>
+    {% for n in notifications %}
+    <p>{{ n }}</p>
+    {% endfor %}
+    <span style="display: flex; align-items: center; justify-content: center">
+      <button id="OKbtn" style="margin: 0px 50px 0px 50px">OK</button>
+    </span>
+  </div>
+{% endblock %}

@@ -1,0 +1,11 @@
+
+gunicorn==19.9.0
+
+Flask==1.0.2
+Flask-SQLAlchemy==2.3.2
+Flask-WTF==0.14.2
+imagesize==1.0.0
+Jinja2==2.10
+requests==2.19.1
+Sphinx==1.7.7
+SQLAlchemy==1.2.11

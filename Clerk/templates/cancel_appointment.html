@@ -1,0 +1,221 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<style>
+		table {font-family: arial, sans-serif; border-collapse: collapse; width: 100%;}
+		td, th {border: 1px solid; text-align: left; padding: 8px;}
+
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Model (background) */
+.model {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Model Content */
+.model-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+td {border: 1px #DDD solid; padding: 5px; cursor: pointer;}
+
+.selected {
+    background-color: brown;
+    color: #FFF;
+}
+</style>
+
+<script>
+$(document).ready(function(){
+
+  var table = $('#table1');
+
+
+
+  //------------------------------------------
+  //SELECT ROW FROM TABLE
+  //------------------------------------------
+  //
+  //Assign click listener here, so that it applies to the new rows also.
+  $("#table1 tr").click(function(){
+    $(this).addClass('selected').siblings().removeClass('selected');    
+    var value=$(this).find('td:first').html(); 
+    var pID=$(this).find('td:last').html(); 
+    displayConfirmation(value, $(this), pID);
+    });
+
+
+    
+  
+  //------------------------------------------
+  //POP UP WINDOW FOR CONFIRMATION OF DELETION
+  //------------------------------------------
+  function displayConfirmation(apptItem, tr, pID){
+
+    //Get Buttons
+    var deleteBtn = document.getElementById('deleteBtn');
+    var cancelBtn = document.getElementById('cancelBtn');
+
+    // Get the modal
+    var model = document.getElementById('myModel');
+    model.style.display = "block";
+
+    // Get the <span> element that closes the model
+    var span = document.getElementsByClassName("close")[0];
+
+    //Get textarea and populate it
+    var tArea = document.getElementById('delItems');
+    //BREAK UP DETAILS IN A MORE READER FRIENDLY MANNER
+    tArea.value="Appointment Number: " + apptItem;
+
+    // When the user clicks on <span> (x), close the model
+    span.onclick = function() {
+        tArea.value = '';
+        model.style.display = "none";
+        tr.removeClass('selected');
+    }
+
+    // When the user clicks on delete button, delete from db, and from table.
+    deleteBtn.onclick = function() {
+      tArea.value = '';
+      model.style.display = "none";
+      postDeleteRequest(apptItem, tr, pID);
+    }
+
+    // When the user clicks on cancel button, close the model
+    cancelBtn.onclick = function() {
+        tArea.value = '';
+        model.style.display = "none";
+        tr.removeClass('selected');
+    }
+  }
+
+
+
+  //------------------------------------------
+  //Send the Delete request
+  //------------------------------------------
+  function postDeleteRequest(apptItem, tr, pID){
+    var delRequest = new XMLHttpRequest();
+    delRequest.open("DELETE", window.location.href);
+    delRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    delRequest.onerror = function() {
+      window.alert("error");
+    };
+
+    delRequest.send("apptID="+apptItem+"&pid="+pID);
+
+    delRequest.onload = function() {
+      if(delRequest.status >= 200 && delRequest.status <400){
+        var message = document.getElementById('message');
+        message.innerHTML="";
+        message.append("Appointment Successfully Cancelled.");
+
+        // window.alert(delRequest.text)
+        tr.remove();
+      } else {
+        window.alert("Connected to Server but error was returned, try another time");
+      }
+    };
+  }
+});
+</script>
+  
+<div class="jumbotron text-centre">
+	<h1 align="center">Cancel Appointment</h1>
+</div>
+
+<!-- Form for appt cancellation -->
+<div>
+  <form align="center" action="" method="post" id="form1">
+      {{ form.csrf }}
+      <div class="form-group">
+        <label for="pid">Enter Patient ID:</label>
+        <input  style="width: 50%; margin: auto; text-align: center;" class="form-control" type="text" class="form-control" id="pid" name="pid" value="{{ p_id }}" placeholder="ID of patient cancelling the appointment">
+      </div>
+      <button id="form1Btn" type="submit" class="btn btn-success">Continue</button>
+  </form>
+<div>
+  {% for e in errors %}
+    <p>{{ e }}</p>
+  {% endfor %}
+  <br><br>
+  <Label style="font-size: 20px" align="center" id="message"></Label>
+</div>
+  
+</br>
+</br>
+</div>
+<h2 id="patientName">{% if pName is defined %}{{ pName }}{% endif %}</h2>
+{%if data|length > 0 %}
+<div>
+  <table id="table1">
+      <tr>
+        <th>Appt ID</th>
+        <th>Date/Time</th>
+        <th>Doctor_Name</th>
+        <th>Doctor_ID</th>
+        <th>Patient_Name</th>
+        <th>Patient_ID</th>
+      </tr>
+      {% if data is defined %}
+      {% for item in data %}
+        <tr>
+          <td width="10%">{{item['id']}}</td>
+          <td width="30%">{{item['date_time']}}</td>
+          <td width="20%">{{item['doctor_name']}}</td>
+          <td width="10%">{{item['doctor_id']}}</td>
+          <td width="20%">{{item['patient_name']}}</td>
+          <td width="10%">{{item['patient_id']}}</td>
+        </tr>
+      {% endfor %}
+      {% endif %}
+  </table>
+</div>
+{% endif %}
+
+<!-- The Modal -->
+<div id="myModel" class="model">
+
+  <!-- Model content -->
+  <div class="model-content">
+    <span class="close">&times;</span>
+    <label>DELETE THE FOLLOWING APPOINTMENT/S:</label>
+    <textarea rows=5 id="delItems" style="width: 100%; display: flex; align-items: center; justify-content: center"></textarea>
+    <span style="display: flex; align-items: center; justify-content: center">
+      <button id="deleteBtn" style="margin: 0px 50px 0px 50px">DELETE</button>
+      <button id="cancelBtn" style="margin: 0px 50px 0px 50px">CANCEL</button>
+    </span>
+  </div>
+{% endblock %}

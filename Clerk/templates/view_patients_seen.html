@@ -1,0 +1,175 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<style>
+		table, .stats {font-family: arial, sans-serif; border-collapse: collapse; width: 100%;}
+		td, th {border: 1px solid; text-align: left; padding: 8px;}
+
+		.statsTD {border: 1px #DDD solid; padding: 5px; cursor: pointer;}
+
+		.selected {
+			background-color: rgb(56, 207, 124);
+			color: #FFF;
+		}
+		#myBtn {
+		width: 100px;
+		display: none;
+		position: fixed;
+		bottom: 20px;
+		right: 30px;
+		z-index: 99;
+		font-size: 18px;
+		border: none;
+		outline: none;
+		background-color: rgb(156, 156, 156);
+		color: rgb(255, 255, 255);
+		cursor: pointer;
+		padding: 15px;
+		border-radius: 4px;
+		}
+
+		#myBtn:hover {
+		background-color: #555;
+		}
+</style>
+
+<script>
+
+	$(document).ready(function(){
+
+		$("#table1 tr").click(function(){
+			$(this).addClass('selected').siblings().removeClass('selected');    
+			var doctorNameTitle=$(this).find('td:first').html(); 
+			var doctorName = doctorNameTitle.split(".");
+			document.getElementById(doctorName[1]).scrollIntoView();
+			// href="#"+doctorName[1];
+		});
+
+		$("#week").click(function(){
+			document.getElementById('month').disabled = this.checked;
+			document.getElementById('startDate').disabled = this.checked;
+			document.getElementById('endDate').disabled = this.checked;
+		});
+
+		$("#month").click(function(){
+			document.getElementById('week').disabled = this.checked;
+			document.getElementById('startDate').disabled = this.checked;
+			document.getElementById('endDate').disabled = this.checked;
+		});
+	});
+	// When the user scrolls down 20px from the top of the document, show the button
+	window.onscroll = function() {scrollFunction()};
+
+	function scrollFunction() {
+		if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+			document.getElementById("myBtn").style.display = "block";
+		} else {
+			document.getElementById("myBtn").style.display = "none";
+		}
+	}
+
+	// When the user clicks on the button, scroll to the top of the document
+	function topFunction() {
+		document.body.scrollTop = 0;
+		document.documentElement.scrollTop = 0;
+	}
+</script>
+
+<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+	<div class="jumbotron text-centre">
+		<h1 align="center">View Patients Seen</h1></br>
+	</div>
+	</br>
+	<form  align="center" id="viewForm" action="" method="post" role="form">
+		{{ form.csrf }}
+		
+		<div>
+			<h3>Please select a period for which you wish to retrieve the data:</h3>
+			<label style="width: 15%" for="startDate">Start Date/Time:</label>
+			<input style="width: 35%; margin: auto; display: inline" class="form-control" id="startDate" type="datetime-local" name="startDate">
+			<br>
+			<label style="width: 15%" for="endDate">End Date/Time:</label>
+			<input style="width: 35%; margin: auto; display: inline" class="form-control" id="endDate" type="datetime-local" name="endDate">
+		</div>
+		<br>
+		<h2 style="display: inline">Last 7 Days</h2><input class="form-control" type="checkbox" id= "week" name="week"><br>
+		<h2 style="display: inline">Last 31 Days</h2><input style="margin: auto; display: inline" class="form-control" type="checkbox" id= "month" name="month"><br>
+		<br><br>
+		<button id="viewBtn" type="submit" class="btn btn-success">View Seen Patients</button>
+	</form>
+	
+	</br>
+	</br>
+	<div>
+		{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+				<ul>
+					<h3 style="color: crimson">ERRORS! :</h3></br>
+					{% for message in messages %}
+						<li style="color: crimson">{{ message[1] }}</li></br>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		{% endwith %}
+	</div>
+	</br>
+	</br>
+	<div>
+		<h3 class="stats" style="width:fit-content; margin:0 auto;">Statistics:</h3>
+		<h4 style="font-size: 15px;" align="center">CLICK ON ROW TO GO TO TABLE</h4>
+		<table id="table1">
+			<tr>
+				<th>Practitioner</th>
+				<th>Busiest</th>
+				<th>Least Busiest</th>
+				<th>Total Seen</th>
+			</tr>
+			{% for stats in statistics %}
+				<tr>
+				<td class="statsTD" width="25%">{{stats['doctor']}}</td>
+				<td class="statsTD" width="25%">{{stats['maxBusy']}}</td>
+				<td class="statsTD" width="25%">{{stats['minBusy']}}</td>
+				<td class="statsTD" width="25%">{{stats['totalSeen']}}</td>
+
+				</tr>
+			{% endfor %}
+		</table>
+		</br>
+	</div>
+
+	<div align="center">
+		<embed type="image/svg+xml" src={{graph_data|safe}} style='max-width:2000px'/>
+	</div>
+</br>
+	<div>
+	{% for result in results %}
+	<h2 id="{{result[0]['doctor_name']}}">Practitioner: {{result[0]['doctor_name']}}</h2>
+	<div>
+	<table>
+		<tr>
+			<th>Appt ID</th>
+			<th>Date/Time</th>
+			<th>Doctor_Name</th>
+			<th>Doctor_ID</th>
+			<th>Patient_Name</th>
+			<th>Patient_ID</th>
+		</tr>
+		{% for item in result %}
+			<tr>
+			<td width="10%">{{item['id']}}</td>
+			<td width="30%">{{item['date_time']}}</td>
+			<td width="20%">{{item['doctor_name']}}</td>
+			<td width="10%">{{item['doctor_id']}}</td>
+			<td width="20%">{{item['patient_name']}}</td>
+			<td width="10%">{{item['patient_id']}}</td>
+			</tr>
+		{% endfor %}
+	</table>
+	</div>
+	</br>
+	{% endfor %}
+	</div>
+
+	
+{% endblock %}

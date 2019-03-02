@@ -1,0 +1,73 @@
+API CODE DOCS
+=============
+.. module:: API.API
+
+.. autoclass:: appointments
+	:members:
+
+.. autoclass:: appointmentsSchema
+	:members:
+	
+.. autoclass:: doctors
+	:members:
+	
+.. autoclass:: doctorsSchema
+	:members:
+	
+.. autoclass:: patients
+	:members:
+	
+.. autoclass:: patientsSchema
+	:members:
+	
+.. autoclass:: patient_db_entries
+	:members:
+	
+.. autoclass:: patient_db_entries_Schema
+	:members:
+	
+.. autoclass:: addEvent
+	:members:
+	
+.. autoclass:: BookAppointment
+	:members:
+	
+.. autoclass:: GetAvailableTimes
+	:members:
+	
+.. autoclass:: GetNewPatientID
+	:members:
+	
+.. autoclass:: AddPatient
+	:members:
+	
+.. autoclass:: GetPatientRecords
+	:members:
+	
+.. autoclass:: GetPatient
+	:members:
+	
+.. autoclass:: AddPatientRecord
+	:members:
+	
+.. autoclass:: GetPatientAppointments
+	:members:
+	
+.. autoclass:: GetAllAppointments
+	:members:
+	
+.. autoclass:: DeletePatientAppointment
+	:members:
+	
+.. autoclass:: GetPatientsSeen
+	:members:
+	
+.. autoclass:: GetDoctors
+	:members:
+	
+.. autoclass:: DeleteDoctor
+	:members:
+	
+.. autoclass:: AddDoctor
+	:members:
+	

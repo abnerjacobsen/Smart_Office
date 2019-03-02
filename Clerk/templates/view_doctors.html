@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<style>
+		table {font-family: arial, sans-serif; border-collapse: collapse; width: 100%;}
+		td, th {border: 1px solid; text-align: left; padding: 8px;}
+
+body {font-family: Arial, Helvetica, sans-serif;}
+
+</style>
+  
+<div class="jumbotron text-centre">
+	<h1 align="center">View Doctors</h1>
+</div>
+<div>
+  {% for e in errors %}
+    <p>{{ e }}</p>
+  {% endfor %}
+</div>
+<div>
+  <table id="table1">
+      <tr>
+        <th>Doctor ID</th>
+        <th>Title</th>
+        <th>Full Name</th>
+        <th>Phone Number</th>
+        <th>Specialty</th>
+        <th>Regular Room</th>
+      </tr>
+      {% for item in data %}
+        <tr>
+          <td width="10%">{{item['doctor_id']}}</td>
+          <td width="10%">{{item['title']}}</td>
+          <td width="20%">{{item['full_name']}}</td>
+          <td width="20%">{{item['phone_number']}}</td>
+          <td width="20%">{{item['specialty']}}</td>
+          <td width="10%">{{item['regular_room']}}</td>
+        </tr>
+      {% endfor %}
+  </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+CLERK FORMS CODE DOCS
+=====================
+.. module:: Clerk.Forms.Forms
+
+.. autoclass:: addDocForm
+	:members:
+
+.. autoclass:: BookApptForm1
+	:members:
+	
+.. autoclass:: BookApptForm2
+	:members:
+	
+.. autoclass:: CancelApptForm
+	:members:
+	
+.. autoclass:: rmDocForm
+	:members:
+	
+.. autoclass:: VPSForm
+	:members:

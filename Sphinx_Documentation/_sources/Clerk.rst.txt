@@ -1,0 +1,45 @@
+CLERK CODE DOCS
+===============
+.. module:: Clerk.clerk
+
+.. autoclass:: admin
+	:members:
+
+.. autoclass:: bookAppointment
+	:members:
+	
+.. autoclass:: bookAppointmentPrepare
+	:members:
+	
+.. autoclass:: bookAppointmentAction
+	:members:
+	
+.. autoclass:: cancelAppointment
+	:members:
+	
+.. autoclass:: cancelAppointmentAction
+	:members:
+	
+.. autoclass:: cancelAppointmentActionDelete
+	:members:
+	
+.. autoclass:: viewPatientsSeen
+	:members:
+	
+.. autoclass:: viewPatientsSeenAction
+	:members:
+	
+.. autoclass:: removeDoctorPopulatePage
+	:members:
+	
+.. autoclass:: removeDoctorAction
+	:members:
+	
+.. autoclass:: addDoctor
+	:members:
+	
+.. autoclass:: addDoctorAction
+	:members:
+	
+.. autoclass:: viewDoctors
+	:members:

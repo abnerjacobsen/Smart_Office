@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+
+{% block body %}
+
+	<div class="jumbotron text-centre">
+		<h1 align="center">Patient Area</h1></br>
+	</div>
+	<label for="announcements" style="width:100%;font:30px Georgia, Garamond, Serif;overflow:auto;">Announcements:</label>
+	<textarea readonly="true" id="announcements" name="announcements" rows="25" style="width:100%;
+		border:1px solid #ccc;font:18px/30px Georgia, Garamond, Serif;overflow:auto;">
+
+		14/10/2018: Clinic will be closing early this Friday, at 4pm. Due to operating an illegal fightclub... because we can.
+
+		13/10/2018: We love peace, and hate violence... But when makin money is involved! Well! FIGHTCLUB FIGHTCLUB!
+		
+		10/10/2018: Most of our revenue comes from those patients who obtain injuries in fightclubs. People... be sensible.
+	</textarea>
+	
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+	<div class="jumbotron text-centre">
+		<h1 align="center">ADD Doctor</h1></br>
+	</div>
+	</br>
+	<div>
+		<h3>{{ response }}</h3>
+	</div>
+	<div>
+	{% with messages = get_flashed_messages(with_categories=true) %}
+		{% if messages %}
+			<ul>
+				<h3 style="color: crimson">ERRORS! :</h3></br>
+				{% for message in messages %}
+					<li style="color: crimson">{{ message[1] }}</li></br>
+				{% endfor %}
+			</ul>
+		{% endif %}
+	{% endwith %}
+	</div>
+	<form  id="addDocForm" action="" method="post" role="form">
+		{{ form.csrf }}
+		<div>
+			<label style="display: inline">Please provide an ID for this new doctor:</label>        
+			<input type="text" class="form-control" id="doctorID" name="doctorID" placeholder="ID for new doctor."> 
+		</br>
+			<label style="display: inline">Please provide persons title:</label>        
+			<input type="text" class="form-control" id="doctorTitle" name="doctorTitle" placeholder="Mr/Mrs/Dr/Prof...etc">
+		</br>
+			<label style="display: inline">Please provide persons full name:</label>        
+			<input type="text" class="form-control" id="doctorFN" name="doctorFN" placeholder="Ie: Will Smith">
+		</br>
+			<label style="display: inline">Please provide a work contact number:</label>        
+			<input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="A contact number">
+		</br>
+			<label style="display: inline">Please state this practitioners specialty:</label>        
+			<input type="text" class="form-control" id="specialty" name="specialty" placeholder="General/Ophthalmology/Cardiology...etc">
+		</br>
+			<label style="display: inline">Please state this practitioners regular room number of practice:</label>        
+			<input type="text" class="form-control" id="regular_room" name="regular_room" placeholder="No. #">
+		</br>
+		</div>
+		<button id="addDoctorBtn" type="submit" class="btn btn-success">Add Doctor</button>
+	</form>
+	</br>
+	</br>
+	
+{% endblock %}

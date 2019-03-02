@@ -1,0 +1,7 @@
+FRONT DESK FACIAL RECOGNITION MODULES CODE DOCS
+===============================================
+.. module:: Front_Desk_Facial_Recognition.recognition.recognise
+
+.. autoclass:: recognise
+	:members:
+

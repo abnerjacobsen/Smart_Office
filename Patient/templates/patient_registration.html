@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+	<style>
+		textarea {
+			resize: none;
+		}
+	</style>
+
+	<div class="jumbotron text-centre">
+		<h1 align="center" >Patient Registration</h1>
+	</div>
+	<div>
+		{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+				<ul>
+					<h3 style="color: crimson">ERRORS! :</h3></br>
+					{% for message in messages %}
+						<li style="color: crimson">{{ message[1] }}</li></br>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		{% endwith %}
+	</div>
+	<form  align="center" action="" method="post" role="form">
+		{{ form.csrf }}
+		<div class="form-group">
+				<label style="display: inline">Please provide persons title:</label>        
+				<input class="form-control" style="width: 50%; margin: auto; text-align: center;" type="text" class="form-control" id="patientTitle" name="patientTitle" placeholder="Mr/Mrs/Miss/Master...etc">
+			</br>
+				<label style="display: inline">Please provide persons full name:</label>        
+				<input class="form-control" style="width: 50%; margin: auto; text-align: center;" type="text" class="form-control" id="patientFN" name="patientFN" placeholder="Ie: Will Smith">
+			</br>
+				<label style="display: inline">Please provide a contact number:</label>        
+				<input class="form-control" style="width: 50%; margin: auto; text-align: center;" type="text" class="form-control" id="phone_number" name="phone_number" placeholder="A contact number"> 
+			</br>
+		</div>
+		<button type="submit" name="keptID" id="keptID" class="btn btn-success">Register</button>
+	</form>
+	</br>
+	</br>
+	<div>
+		<h3>{{ response }}</h3>
+	</div>
+
+{% endblock %}

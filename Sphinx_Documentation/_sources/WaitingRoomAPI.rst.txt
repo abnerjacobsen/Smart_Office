@@ -1,0 +1,21 @@
+WAITING ROOM API CODE DOCS
+==========================
+.. module:: WaitingRoomAPI.wr_API
+
+.. autoclass:: waiting_room
+	:members:
+
+.. autoclass:: waiting_room_schema
+	:members:
+
+.. autoclass:: callPatientIn
+	:members:
+	
+.. autoclass:: addToWaitingRoom
+	:members:
+	
+.. autoclass:: getNextAppointment
+	:members:
+	
+.. autoclass:: appointmentComplete
+	:members:

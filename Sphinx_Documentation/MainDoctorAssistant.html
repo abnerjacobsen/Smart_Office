@@ -1,0 +1,178 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>MAIN DOCTOR ASSISTANT CODE DOCS &#8212; PIoT A2 - Smart Office 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="BACKUP DOCTOR ASSISTANT CODE DOCS" href="BackupDoctorAssistant.html" />
+    <link rel="prev" title="API (LIBRARY) CODE DOCS" href="API_LibraryCode.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-Doctor_Assistant_1.src.MainAssistantPi">
+<span id="main-doctor-assistant-code-docs"></span><h1>MAIN DOCTOR ASSISTANT CODE DOCS<a class="headerlink" href="#module-Doctor_Assistant_1.src.MainAssistantPi" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Doctor_Assistant_1.src.MainAssistantPi.doctorAssistant">
+<em class="property">class </em><code class="descclassname">Doctor_Assistant_1.src.MainAssistantPi.</code><code class="descname">doctorAssistant</code><a class="headerlink" href="#Doctor_Assistant_1.src.MainAssistantPi.doctorAssistant" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is the doctor Assistant class. It operates the google assistant for the doctor.
+Here the doctor can ask to see next patient, get just the info of the next patient, and dictate to the pi.</p>
+<dl class="method">
+<dt id="Doctor_Assistant_1.src.MainAssistantPi.doctorAssistant.dicatationService">
+<code class="descname">dicatationService</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Doctor_Assistant_1.src.MainAssistantPi.doctorAssistant.dicatationService" title="Permalink to this definition">¶</a></dt>
+<dd><p>The dictation service. Here the assistant is taking note of the speech, and re-listening.
+doctor triggers next line by repeating “OK GOOGLE”</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Doctor_Assistant_1.src.MainAssistantPi.doctorAssistant.done">
+<code class="descname">done</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Doctor_Assistant_1.src.MainAssistantPi.doctorAssistant.done" title="Permalink to this definition">¶</a></dt>
+<dd><p>Here the doctor can now remove the last seen patient from the waiting list.
+Appointment complete.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Doctor_Assistant_1.src.MainAssistantPi.doctorAssistant.main">
+<code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Doctor_Assistant_1.src.MainAssistantPi.doctorAssistant.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Here hotwords are detected and sent through as events to process events.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Doctor_Assistant_1.src.MainAssistantPi.doctorAssistant.nextInfo">
+<code class="descname">nextInfo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Doctor_Assistant_1.src.MainAssistantPi.doctorAssistant.nextInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Here the doctor can obtain a breif summary of the next appointment without calling the
+petient in. Like so, they can check how they are going for time, can they take breaks etc…</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Doctor_Assistant_1.src.MainAssistantPi.doctorAssistant.nextPatient">
+<code class="descname">nextPatient</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Doctor_Assistant_1.src.MainAssistantPi.doctorAssistant.nextPatient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Using this function the doctor is able to be told about 
+the next appointment and have the patient called in.
+NOTE: called in patient is kept as current patient.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Doctor_Assistant_1.src.MainAssistantPi.doctorAssistant.nextQuick">
+<code class="descname">nextQuick</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Doctor_Assistant_1.src.MainAssistantPi.doctorAssistant.nextQuick" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a faster way to call in the patient. If the doctor wants to save time, 
+and doesn’t want to assistant taking too long to call in the patient.
+NOTE: called in patient is kept as current patient.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Doctor_Assistant_1.src.MainAssistantPi.doctorAssistant.process_event">
+<code class="descname">process_event</code><span class="sig-paren">(</span><em>assistant</em>, <em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#Doctor_Assistant_1.src.MainAssistantPi.doctorAssistant.process_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Here the assistant processes incoming events. Ie: When a hotword is detected.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Doctor_Assistant_1.src.MainAssistantPi.doctorAssistant.sendDicatation">
+<code class="descname">sendDicatation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Doctor_Assistant_1.src.MainAssistantPi.doctorAssistant.sendDicatation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Here the dictated speech is sent to the main API for adding the note to the patient record.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">PIoT A2 - Smart Office</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Clerk.html">CLERK CODE DOCS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ClerkForms.html">CLERK FORMS CODE DOCS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Patient.html">PATIENT CODE DOCS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PatientForms.html">PATIENT FORMS CODE DOCS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Practitioner.html">PRACTITIONER CODE DOCS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PractitionerForms.html">Practitioner FORMS CODE DOCS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIcode.html">API CODE DOCS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API_LibraryCode.html">API (LIBRARY) CODE DOCS</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">MAIN DOCTOR ASSISTANT CODE DOCS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BackupDoctorAssistant.html">BACKUP DOCTOR ASSISTANT CODE DOCS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FrontDeskAssistant.html">FRONT DESK ASSISTANT CODE DOCS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FrontFaceRecog.html">FRONT DESK FACIAL RECOGNITION API CODE DOCS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FrontFaceRecogModule.html">FRONT DESK FACIAL RECOGNITION MODULES CODE DOCS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WaitingRoomAPI.html">WAITING ROOM API CODE DOCS</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="API_LibraryCode.html" title="previous chapter">API (LIBRARY) CODE DOCS</a></li>
+      <li>Next: <a href="BackupDoctorAssistant.html" title="next chapter">BACKUP DOCTOR ASSISTANT CODE DOCS</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Savas Semirli (s3285220).
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/MainDoctorAssistant.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

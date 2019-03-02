@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+
+{% block body %}
+<div class="jumbotron text-centre">
+	<h1 align="center">Practitioner Availability</h1></br>
+</div>
+
+<div>
+	{% with messages = get_flashed_messages(with_categories=true) %}
+		{% if messages %}
+			<ul>
+				<h3 style="color: crimson">ERRORS! :</h3></br>
+				{% for message in messages %}
+					<li style="color: crimson">{{ message[1] }}</li></br>
+				{% endfor %}
+			</ul>
+		{% endif %}
+	{% endwith %}
+</div>
+	
+<div>
+	{% for response in responses %}
+		<li style="color: rgb(0, 0, 0)">{{ response }}</li><br>
+	{% endfor %}
+	<br>
+</div>
+<div>
+    <iframe src="https://calendar.google.com/calendar/embed?src=med.appt.sys%40gmail.com&ctz=Australia%2FMelbourne" 
+    style="border-width:0; position: relative; width: 100%" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+</div>
+<div>
+	<form style="border-style: ridge;" align="center" action="" method="post" id="availability" name="availability">{{ form.csrf }}
+
+		<div>
+			<br>
+			<label style="font-size: 30px" for="doctor">I am:</label><br><br>
+			<select style="width: 50%; margin: auto; text-align: center;" class="form-control"  name="doctor" id="doctor">
+				<option value="">Select</option>
+				{% for x in doctor_list %}
+				<option value="{{ x['titleName'] }}">{{ x['titleName'] }}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<br><br>
+		<div>
+			<h4>Please select a period for which you wish to state your availability:</h4>
+			<p>Leave end date blank if you are providing availability for only one day</p>
+			<label style="width: 8%; text-align: right" for="startDate">Start Date:</label>
+			<input style="display: inline; width: 17%; margin: auto; text-align: center;" class="form-control"  id="startDate" type="date" name="startDate">
+		
+			<label style="width: 8%; text-align: right" for="endDate">End Date:</label>
+			<input style="display: inline; width: 17%; margin: auto; text-align: center;" class="form-control"  id="endDate" type="date" name="endDate"><br>
+		</div>
+		<br>
+		<div>
+			<h3>Please select your availability timeframe:</h3>
+			<label style="width: 8%" for="start_time">From:</label>
+			<input style="display: inline; width: 17%; margin: auto; text-align: center;" class="form-control"  id="startTime" type="time" name="startTime">
+		
+			<label style="width: 8%" for="end_time">To:</label>
+			<input style="display: inline; width: 17%; margin: auto; text-align: center;" class="form-control" id="endTime" type="time" name="endTime"><br>
+		</div>
+		<br><br>
+		<button id="submit" name="submit" type="submit" class="btn btn-success">Submit Availability</button>
+		<br><br>
+	</form>
+</div>
+{% endblock %}

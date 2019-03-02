@@ -1,0 +1,12 @@
+FRONT DESK FACIAL RECOGNITION API CODE DOCS
+===========================================
+.. module:: Front_Desk_Facial_Recognition.fr_API
+
+.. autoclass:: appointments
+	:members:
+
+.. autoclass:: appointmentsSchema
+	:members:
+	
+.. autoclass:: recognisePatient
+	:members:

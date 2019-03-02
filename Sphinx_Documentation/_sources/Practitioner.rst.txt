@@ -1,0 +1,27 @@
+PRACTITIONER CODE DOCS
+======================
+.. module:: Practitioner.practitioner
+
+.. autoclass:: home
+	:members:
+
+.. autoclass:: viewPatientRecordsLanding
+	:members:
+	
+.. autoclass:: viewPatientRecordsGet
+	:members:
+	
+.. autoclass:: getRecordsData
+	:members:
+	
+.. autoclass:: getDoctorForList
+	:members:
+	
+.. autoclass:: submitPatientRecordsAction
+	:members:
+	
+.. autoclass:: stateAvailability
+	:members:
+	
+.. autoclass:: stateAvailabilitySubmit
+	:members:

@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block body %}
+	<div class="jumbotron text-centre">
+		<h1 align="center">Registration Complete</h1>
+	</div>
+	<div>
+		{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+				<ul>
+					<h3 style="color: crimson">ERRORS! :</h3></br>
+					{% for message in messages %}
+						<li style="color: crimson">{{ message[1] }}</li></br>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		{% endwith %}
+	</div>
+	<div>
+		<h2 align="center">Thank you for registering with us {{ title }}.{{ fullname }}.</h2></br>
+		<h2 align="center">Please keep record of your patient ID below:</h2>
+		<h1 align="center"><sring>{{ id }}</sring></h1>      
+
+	<div>
+{% endblock %}

@@ -1,0 +1,15 @@
+PATIENT FORMS CODE DOCS
+=======================
+.. module:: Patient.Forms.Forms
+
+.. autoclass:: BookApptForm1
+	:members:
+	
+.. autoclass:: BookApptForm2
+	:members:
+	
+.. autoclass:: CancelApptForm
+	:members:
+	
+.. autoclass:: registerForm
+	:members:

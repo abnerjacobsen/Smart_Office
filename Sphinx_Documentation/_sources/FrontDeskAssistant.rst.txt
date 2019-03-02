@@ -1,0 +1,12 @@
+FRONT DESK ASSISTANT CODE DOCS
+==============================
+.. module:: Front_Desk_Assistant.src.AssistantPi
+
+.. autoclass:: hereForAppointment
+	:members:
+
+.. autoclass:: process_event
+	:members:
+	
+.. autoclass:: main
+	:members:

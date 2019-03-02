@@ -1,0 +1,40 @@
+<nav class="jumbotron text-centre">
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+        
+        li {
+            float: left;
+        }
+        
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        
+        li a:hover {
+            background-color: #111;
+        }
+        </style>
+        
+        <img src = "{{ url_for('static', filename='MAPS_LOGO.png') }}" style="width:175px;height:175px;margin: 0px 20px 20px 20px;"/>
+        <h1 style="display: inline" id="welcomeHeader">WELCOME TO MAPS!</h1>
+        
+        <ul>
+          <li><a class="active" href="/">Home</a></li>
+          <li><a href="/book_appointment">Book Appointment</a></li>
+          <li><a href="/cancel_appointment">Cancel Appointment</a></li>
+          <li><a href="/view_patients_seen">View Patients Seen</a></li>
+          <li><a href="/remove_doctor">Remove Doctor</a></li>
+          <li><a href="/add_doctor">Add Doctor</a>
+            <li><a href="/view_doctors">View Doctors</a>
+        </ul>
+</nav>

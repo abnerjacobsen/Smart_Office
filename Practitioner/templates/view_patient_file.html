@@ -1,0 +1,155 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<style>
+
+  textarea {
+    resize: none;
+  }
+
+  .micImg {float: right; width: 40px }
+
+</style>
+
+<script>
+
+  $(document).ready(function(){
+
+    $("#patientNameReference").on('input', function(){
+    	$("#tempName").text('');
+      $("#tempName").append($(this).val());
+    });
+
+    $("#doctor").on('input', function(){
+    	$("#tempDoctor").text('');
+      $("#tempDoctor").append($(this).val());
+    });
+
+    $("#pid").on('input', function(){
+    	$("#tempPID").text('');
+      $("#tempPID").append($(this).val());
+    });
+
+  });
+
+function startDictation(id) {
+
+if (window.hasOwnProperty('webkitSpeechRecognition')) {
+
+  var recognition = new webkitSpeechRecognition();
+
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  recognition.lang = "en-US";
+  recognition.start();
+
+  recognition.onresult = function(e) {
+    document.getElementById(id).append(
+                             e.results[0][0].transcript + " ");
+    // recognition.stop();
+  };
+
+  recognition.onerror = function(e) {
+    recognition.stop();
+  }
+
+}
+}
+
+</script>
+
+<div class="jumbotron text-centre">
+	<h1 align="center">View/Add Patient Records</h1>
+</div>
+<div>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul>
+        <h3 style="color: crimson">ERRORS! :</h3></br>
+        {% for message in messages %}
+          <li style="color: crimson">{{ message[1] }}</li></br>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+    </br>
+</div>
+<!-- Form for getting patient data -->
+<form  action="/viewPatientFile" method="post" role="form">
+    {{ form1.csrf }}
+    <div class="form-group">
+        <div style="width:fit-content; margin:0 auto;">
+          <label style="display: inline;">I am:</label>
+          <select style="margin-left: 20px" name="doctor" id="doctor">
+            <option value="">Select</option>
+            {% for x in doctor_list %}
+              {% if selectedDoctor is defined %}
+                {% if selectedDoctor in x['titleName'] %}
+                  <option selected value="{{ x['titleName']}} - {{ x['id'] }}">{{ x['titleName'] }} - {{ x['id'] }}</option>
+                {% else %}
+                  <option value="{{ x['titleName']}} - {{ x['id'] }}">{{ x['titleName'] }} - {{ x['id'] }}</option>
+                {% endif %}
+              {% else %}
+                <option value="{{ x['titleName']}} - {{ x['id'] }}">{{ x['titleName'] }} - {{ x['id'] }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+      <label for="pid">Enter Patient ID:</label>
+      <input type="text" class="form-control" id="pid" name="pid" placeholder="ID of patient to view" value={{pid}}>
+    </div>
+    <button type="submit" class="btn btn-success">View</button>
+</form>
+
+</br>
+  <label id="patientNameReference" for="patientHistory">Patient History: {{fullname}}</label></br>
+  {% if custom_message is defined %}
+  <label>{{ custom_message }}</label></br>
+  {% endif %}
+  <textarea readonly="true" id="patientHistory" name="patientHistory" rows="25" style="width:100%;
+    border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+{% for item in data %}
+{{item['timestamp']}}
+Entry #{{item['id']}} || Patient ID: {{item['patient_id']}}
+Entry type: {{item['entry_type']}}
+Made by: {{item['doctor_name']}} || Doctor ID: {{item['doctor_id']}}
+{{ item['value'] }}
+---------------------------------
+{% endfor %}
+  </textarea>
+  </br>
+  </br>
+
+<form action="/submitSuccessfull" method="POST">
+  {{ form2.csrf }}
+  <label style="display: inline;" for="addNote">Add Note To Patient History:</label>
+  <input type="checkbox"  id="tick" onchange="document.getElementById('addNote').disabled = !this.checked; 
+          document.getElementById('noteMic').hidden = !this.checked;" style="display: inline; transform: scale(2); margin-left: 20px"/>
+  <img id="noteMic" hidden class="micImg" onclick="startDictation('addNote')" src="{{ url_for('static', filename='mic.png') }}" />
+  <textarea disabled id="addNote" name="addNote" rows="10" style="width:100%;
+    border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">{% if note is defined %}{{ note }}{% endif %}</textarea>
+  </br>
+  </br>
+  <label style="display: inline;" for="addDiagnosis">Add Diagnoses To Patient History:</label>
+  <input type="checkbox"  id="tick" onchange="document.getElementById('addDiagnosis').disabled = !this.checked; 
+          document.getElementById('diagMic').hidden = !this.checked;" style="display: inline; transform: scale(2); margin-left: 20px"/>
+  <img id="diagMic" hidden class="micImg" onclick="startDictation('addDiagnosis')" src="{{ url_for('static', filename='mic.png') }}" />
+  <textarea disabled id="addDiagnosis" name="addDiagnosis" rows="10" style="width:100%;
+    border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">{% if diagnosis is defined %}{{note}}{%endif%}</textarea>
+
+  <textarea id="tempPID" name="tempPID" hidden>{{pid}}</textarea>
+  <textarea id="tempName" name="tempName" hidden>{{fullname}}</textarea>
+  <textarea id="tempDoctor" name="tempDoctor" hidden>{{tempDoctor}}</textarea>
+  </br>
+  </br>
+
+  <div>
+    <label style="display: inline">Confirm all fields completed: </label>
+    <input type="checkbox"  id="tick" onchange="document.getElementById('saveBtn').disabled = !this.checked;" style="display: inline; transform: scale(2); margin-left: 20px"/>
+  </div>
+  <button disabled id="saveBtn" type="submit" class="btn btn-success">Save Record</button>
+</form>
+
+{% endblock %}

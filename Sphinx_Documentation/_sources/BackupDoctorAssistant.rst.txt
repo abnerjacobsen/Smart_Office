@@ -1,0 +1,21 @@
+BACKUP DOCTOR ASSISTANT CODE DOCS
+=================================
+.. module:: Doctor_Assistant_1.src.BackupAssistantPi
+
+.. autoclass:: nextPatient
+	:members:
+
+.. autoclass:: nextQuick
+	:members:
+	
+.. autoclass:: nextInfo
+	:members:
+	
+.. autoclass:: done
+	:members:
+	
+.. autoclass:: process_event
+	:members:
+	
+.. autoclass:: main
+	:members:

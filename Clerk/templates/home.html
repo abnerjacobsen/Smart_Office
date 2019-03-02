@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+
+{% block body %}
+
+	<div class="jumbotron text-centre">
+		<h1 align="center">Clerk Area</h1></br>
+	</div>
+	<label for="announcements" style="width:100%;font:30px Georgia, Garamond, Serif;overflow:auto;">Announcements:</label>
+	<textarea readonly="true" id="announcements" name="announcements" rows="25" style="width:100%;
+		border:1px solid #ccc;font:18px/30px Georgia, Garamond, Serif;overflow:auto;">
+		
+		12/10/2018: Doctors usually take their breaks at 1pm. You all know what to do...
+
+		11/10/2018: The clerkhood must thrive. Down with the doct... I mean, long live the doctors...
+
+		9/10/2018: Payrise! Payrise! Payrise!
+		
+	</textarea>
+
+
+</br>
+
+{% endblock %}

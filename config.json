@@ -1,0 +1,11 @@
+{
+    "SECRET_KEY": "my!piot@assignment$student*ID:s3285220",
+    "API_ACCESS_KEY" : "PzCmD3&0^1c&eCtQJ0srrl9qaDQnM@6GI1F&Zz&ctEsovj33!",
+    "URL" : "http://192.168.1.9:5001/",
+    "URL-FrontDeskFaceRec" : "http://192.168.1.14:5005/",
+    "URL-WaitingRoom" : "http://192.168.1.9:5006/",
+    "Doctor_1" : "Stuart Smith",    "Doctor_1_id" : "D00001",
+    "Doctor_2" : "Jane Doe",    "Doctor_2_id" : "D00003",
+    "Doctor_3" : "Jhon Doe",    "Doctor_3_id" : "D00004",
+    "Doctor_4" : "Bill Smither",    "Doctor_4_id" : "D00005"
+}

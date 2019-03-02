@@ -1,0 +1,80 @@
+ALL CREATED IN maps1234>maps_db
+
+MySQL [maps_db]> desc patient_db_entries;
++--------------+--------------+------+-----+-------------------+-----------------------------+
+| Field        | Type         | Null | Key | Default           | Extra                       |
++--------------+--------------+------+-----+-------------------+-----------------------------+
+| id           | int(11)      | NO   | PRI | NULL              | auto_increment              |
+| patient_id   | varchar(10)  | YES  |     | NULL              |                             |
+| entry_type   | varchar(10)  | YES  |     | NULL              |                             |
+| value        | text         | YES  |     | NULL              |                             |
+| timestamp    | timestamp    | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
+| patient_name | varchar(100) | YES  |     | NULL              |                             |
+| doctor_name  | varchar(100) | YES  |     | NULL              |                             |
+| doctor_id    | varchar(10) | YES  |     | NULL              |                             |
++--------------+--------------+------+-----+-------------------+-----------------------------+
+5 rows in set (0.19 sec)
+
+
+MySQL [maps_db]> desc appointments;
++--------------+--------------+------+-----+-------------------+-----------------------------+
+| Field        | Type         | Null | Key | Default           | Extra                       |
++--------------+--------------+------+-----+-------------------+-----------------------------+
+| id           | int(11)      | NO   | PRI | NULL              | auto_increment              |
+| date_time    | timestamp    | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
+| doctor_id    | varchar(10)  | YES  |     | NULL              |                             |
+| patient_id   | varchar(10)  | YES  |     | NULL              |                             |
+| doctor_name  | varchar(100) | YES  |     | NULL              |                             |
+| patient_name | varchar(100) | YES  |     | NULL              |                             |
++--------------+--------------+------+-----+-------------------+-----------------------------+
+4 rows in set (0.17 sec)
+
+
+MySQL [maps_db]> desc doctors;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| doctor_id    | varchar(10)  | NO   | PRI | NULL    |       |
+| title        | varchar(10)  | YES  |     | NULL    |       |
+| full_name    | varchar(100) | YES  |     | NULL    |       |
+| phone_number | varchar(50)  | YES  |     | NULL    |       |
+| specialty    | varchar(100) | YES  |     | NULL    |       |
+| regular_room | int(11)      | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+6 rows in set (0.16 sec)
+
+
+MySQL [maps_db]> desc patients;
++--------------+--------------+------+-----+-------------------+-----------------------------+
+| Field        | Type         | Null | Key | Default           | Extra                       |
++--------------+--------------+------+-----+-------------------+-----------------------------+
+| patient_id   | varchar(10)  | NO   | PRI | NULL              |                             |
+| title        | varchar(10)  | YES  |     | NULL              |                             |
+| full_name    | varchar(100) | YES  |     | NULL              |                             |
+| phone_number | varchar(50)  | YES  |     | NULL              |                             |
+| timestamp    | timestamp    | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
++--------------+--------------+------+-----+-------------------+-----------------------------+
+
+MySQL [maps_db]> create table waiting_room (id int primary key auto_increment, date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, doctor_id varchar(10), patient_id varchar(10), doctor_name varchar(100), patient_name varchar(100), arrival_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);
+Query OK, 0 rows affected (0.19 sec)
+
+MySQL [maps_db]> desc waiting_room;
++--------------+--------------+------+-----+-------------------+-----------------------------+
+| Field        | Type         | Null | Key | Default           | Extra                       |
++--------------+--------------+------+-----+-------------------+-----------------------------+
+| id           | int(11)      | NO   | PRI | NULL              | auto_increment              |
+| date_time    | timestamp    | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
+| doctor_id    | varchar(10)  | YES  |     | NULL              |                             |
+| patient_id   | varchar(10)  | YES  |     | NULL              |                             |
+| doctor_name  | varchar(100) | YES  |     | NULL              |                             |
+| patient_name | varchar(100) | YES  |     | NULL              |                             |
+| arrival_time | timestamp    | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
++--------------+--------------+------+-----+-------------------+-----------------------------+
+7 rows in set (0.17 sec)
+
+MySQL [maps_db]>
+
+SELECT * FROM (SELECT * FROM waiting_room WHERE doctor_id = D00001) as a WHERE date_time = (SELECT MIN(date_time) FROM (SELECT * FROM waiting_room WHERE doctor_id = D00001) as b);
+
+gcloud:
+SELECT * FROM (SELECT * FROM waiting_room WHERE doctor_id = 'D00001') as a WHERE date_time = (SELECT MIN(date_time) FROM (SELECT * FROM waiting_room WHERE doctor_id = 'D00001') as b);

@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+	<div class="jumbotron text-centre">
+		<h1 align="center">Remove Doctor</h1></br>
+	</div>
+	</br>
+	<div>
+		<h3>{{ response }}</h3>
+	</div>
+	<div>
+		{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+				<ul>
+					<h3 style="color: crimson">ERRORS! :</h3></br>
+					{% for message in messages %}
+						<li style="color: crimson">{{ message[1] }}</li></br>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		{% endwith %}
+	</div>
+	<form  id="viewForm" action="" method="post" role="form">
+		{{ form.csrf }}
+		<div>
+			<label style="display: inline">Please select a doctor to remove:</label>        
+			<select style="margin-left: 20px" name="doctor" id="doctor">
+			  <option value="">Select</option>
+			  {% for x in doctor_list %}
+			  <option value="{{ x }}">{{ x }}</option>
+			  {% endfor %}
+			</select>
+		</div>
+		<button id="removeDoctorBtn" type="submit" class="btn btn-success">Remove Doctor</button>
+	</form>
+	</br>
+	</br>
+	
+{% endblock %}

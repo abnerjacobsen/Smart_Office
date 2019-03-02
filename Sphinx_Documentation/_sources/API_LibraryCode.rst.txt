@@ -1,0 +1,14 @@
+API (LIBRARY) CODE DOCS
+=======================
+.. module:: API.Library.Generator
+
+.. autoclass:: generateID
+	:members:
+	
+.. module:: API.Library.googleCalendar.CalEvents
+
+.. autoclass:: addToCalendar
+	:members:
+	
+.. autoclass:: getCalendarEvents
+	:members:

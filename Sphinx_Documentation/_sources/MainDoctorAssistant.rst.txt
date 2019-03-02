@@ -1,0 +1,6 @@
+MAIN DOCTOR ASSISTANT CODE DOCS
+===============================
+.. module:: Doctor_Assistant_1.src.MainAssistantPi
+
+.. autoclass:: doctorAssistant
+	:members:
